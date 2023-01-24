@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Upload artifacts
+      - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: code
@@ -17,8 +17,8 @@ jobs:
     container: gradle:6-jdk11
     needs: Clone-down
     steps:
-      - name: Download artifacts
-        uses: actions/download-artifacts@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v3
         with:
           name: code
           path: .
