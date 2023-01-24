@@ -1,5 +1,9 @@
 name: JAVA CI
 on: push
+env:
+  docker_username: max-bevelander-miro
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
+  GIT_COMMIT: ${{ github.sha }}
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
