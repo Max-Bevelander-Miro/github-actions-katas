@@ -6,7 +6,7 @@ env:
   GIT_COMMIT: ${{ github.sha }}
 jobs:
   Clone-down:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     container: gradle:6-jdk11
     steps:
       - name: Checkout
@@ -17,7 +17,7 @@ jobs:
           name: code
           path: .
   Build:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     container: gradle:6-jdk11
     needs: Clone-down
     steps:
@@ -36,7 +36,7 @@ jobs:
           name: code
           path: .
   build-and-push-latest:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     needs: Build
     permissions:
       packages: write
@@ -59,7 +59,7 @@ jobs:
           push: true
           tags: ghcr.io/max-bevelander-miro/micronaut-app:1.0-${{ github.sha }},ghcr.io/max-bevelander-miro/micronaut-app:latest
   Component-test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     needs: [build-and-push-latest]
     steps:
     - name: Download code
@@ -70,7 +70,7 @@ jobs:
     - name: Execute component test
       run: chmod +x ci/component-test.sh && ci/component-test.sh
   Performance-test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     needs: [build-and-push-latest]
     steps:
     - name: Download code
